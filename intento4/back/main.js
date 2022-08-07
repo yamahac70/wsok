@@ -37,6 +37,9 @@ app.get("/limpiar",(req,res)=>{
 app.get("/msg",(req,res)=>{
     res.json(mensajes)
 })
+app.get("/",(req,res)=>{
+    res.send("hola")
+})
 server.listen(4000,()=>{
     console.log("servidor corriendo en el puerto "+port)
 })
