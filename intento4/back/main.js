@@ -4,6 +4,7 @@ const bodyParser=require("body-parser")
 const cors=require("cors")
 const http=require("http")
 const server=http.createServer(app)
+const port = process.env.PORT || 4000
 const {Server}=require("socket.io")
 const io=new Server(server,{cors:{
     origin:"*"
@@ -37,5 +38,5 @@ app.get("/msg",(req,res)=>{
     res.json(mensajes)
 })
 server.listen(4000,()=>{
-    console.log("servidor corriendo en el puerto 4000")
+    console.log("servidor corriendo en el puerto "+port)
 })
