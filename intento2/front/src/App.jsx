@@ -1,10 +1,25 @@
-import { useState } from 'react'
+import { useState,useEffect,useRef } from 'react'
 import reactLogo from './assets/react.svg'
+import socket from './components/Soket'
 import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+ /*  useEffect(() => {
+    socket.emit('contador', count)
+    
+  }, [count]) */
+  useEffect(() => {
+    socket.on("contador", (mensaje) => {
+     console.log(mensaje)
+      setCount(mensaje);
+    });
 
+    return () => {
+      socket.off();
+    };
+  }, [count]);
+  const divRef=useRef(null)
   return (
     <div className="App">
       <div>
@@ -17,7 +32,13 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
+        <button onClick={() =>{ 
+          
+          setCount((count) => count + 1)
+          socket.emit('contador', count+1)
+          
+          
+          }}>
           count is {count}
         </button>
         <p>
